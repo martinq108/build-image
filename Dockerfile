@@ -32,10 +32,14 @@ RUN adduser -S -u ${uid} -h $HOME -G ${group} ${user}
 RUN addgroup -S -g ${docker_gid} ${docker_group}
 RUN adduser ${user} ${docker_group}
 
-# run container as jenkins user
-USER ${user}
+RUN mkdir ${HOME}/.gradle && \
+	chown ${uid}:${gid} ${HOME}/.gradle
 
 VOLUME ${HOME}
+VOLUME ${HOME}/.gradle
 WORKDIR ${HOME}
+
+# run container as jenkins user
+USER ${user}
 
 #CMD ["/bin/bash"]
