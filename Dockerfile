@@ -2,10 +2,10 @@ FROM docker:18.05
 
 MAINTAINER Martin Kvapil <martin@qapil.cz>
 
-ARG user=jenkins
-ARG group=jenkins
-ARG uid=1009
-ARG gid=1009
+ARG user=jenkins-slave
+ARG group=jenkins-slave
+ARG uid=997
+ARG gid=994
 ARG docker_group=docker
 ARG docker_gid=997
 
@@ -13,7 +13,7 @@ ARG docker_gid=997
 # install iputils to have correct ping behavior
 # install java and jenkins swarm client
 RUN apk add --no-cache \
-	git bash iputils curl \
+	git bash iputils curl rsync \
 	&& mkdir -p /usr/share/jenkins \
 	&& chmod 755 /usr/share/jenkins
 
@@ -32,11 +32,12 @@ RUN adduser -S -u ${uid} -h $HOME -G ${group} ${user}
 RUN addgroup -S -g ${docker_gid} ${docker_group}
 RUN adduser ${user} ${docker_group}
 
-RUN mkdir ${HOME}/.gradle && \
-	chown ${uid}:${gid} ${HOME}/.gradle
+RUN mkdir ${HOME}/gradle-volume && \
+	chown ${uid}:${gid} ${HOME}/gradle-volume
 
-VOLUME ${HOME}
-VOLUME ${HOME}/.gradle
+#VOLUME ${HOME}
+#VOLUME ${HOME}/.gradle
+VOLUME ${HOME}/gradle-volume
 WORKDIR ${HOME}
 
 # run container as jenkins user
