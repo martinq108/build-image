@@ -17,8 +17,8 @@ RUN apk add --no-cache \
 	&& mkdir -p /usr/share/jenkins \
 	&& chmod 755 /usr/share/jenkins
 
-ENV JAVA_VERSION 8u171
-ENV JAVA_ALPINE_VERSION 8.171.11-r0
+ENV JAVA_VERSION 8u222
+ENV JAVA_ALPINE_VERSION 8.222.10-r1
 
 RUN apk add --no-cache openjdk8="$JAVA_ALPINE_VERSION"
 
