@@ -13,7 +13,7 @@ ARG docker_gid=997
 # install iputils to have correct ping behavior
 # install java and jenkins swarm client
 RUN apk add --no-cache \
-	git bash iputils curl rsync \
+	git bash iputils curl rsync subversion \
 	&& mkdir -p /usr/share/jenkins \
 	&& chmod 755 /usr/share/jenkins
 
